@@ -1,5 +1,4 @@
 import { Injectable, HttpException } from '@nestjs/common';
-import { BOOKS } from '../mocks/books.mock';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from 'src/books/entity/book.entity';
 import { Repository } from 'typeorm';
@@ -10,7 +9,6 @@ export class BooksService {
     @InjectRepository(Book)
     private readonly bookRepository: Repository<Book>,
   ) {}
-  books = BOOKS;
 
   async getBooks(): Promise<Book[]> {
     return await this.bookRepository.find();
