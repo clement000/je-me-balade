@@ -1,33 +1,21 @@
-import { Injectable, HttpException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Book } from 'src/books/entity/book.entity';
-import { Repository } from 'typeorm';
+import { Injectable, Inject } from '@nestjs/common';
+import { NodePgDatabase } from 'drizzle-orm/node-postgres';
+import { PG_CONNECTION } from 'src/constants';
+import * as schema from '../drizzle/schema';
+import { Book, bookTable, InsertBook } from 'src/drizzle/schema';
 
 @Injectable()
 export class BooksService {
   constructor(
-    @InjectRepository(Book)
-    private readonly bookRepository: Repository<Book>,
+    @Inject(PG_CONNECTION) private conn: NodePgDatabase<typeof schema>,
   ) {}
 
   async getBooks(): Promise<Book[]> {
-    return await this.bookRepository.find();
+    const books = await this.conn.select().from(bookTable);
+    return books;
   }
 
-  async getBook(bookId: number): Promise<Book> {
-      const book = await this.bookRepository.findOneBy({id: bookId});
-      if (!book) {
-        throw new HttpException(`Book with id ${bookId} does not exist!`, 404);
-      }
-      return book;
-  }
-
-  async addBook(book: Book): Promise<Book> {
-    const savedBook = await this.bookRepository.save(book);
-    return savedBook;
-  }
-
-  async deleteBook(bookId: number): Promise<void> {
-    await this.bookRepository.delete({id: bookId});
+  async addBook(bookToAdd: InsertBook): Promise<void> {
+    await this.conn.insert(bookTable).values([bookToAdd]);
   }
 }
