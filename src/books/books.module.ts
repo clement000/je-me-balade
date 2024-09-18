@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { BooksController } from './books.controller';
 import { BooksService } from './books.service';
-import { DrizzleModule } from 'src/drizzle/drizzle.module';
+import { DrizzleModule } from 'src/shared/drizzle/drizzle.module';
+import { BookRepository } from 'src/books/bookRepository';
 
 @Module({
   imports: [DrizzleModule],
   controllers: [BooksController],
-  providers: [BooksService],
+  providers: [BooksService, BookRepository],
 })
 export class BooksModule {}

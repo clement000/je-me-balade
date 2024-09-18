@@ -1,4 +1,3 @@
-import { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import { serial, text, pgTable } from 'drizzle-orm/pg-core';
 
 export const bookTable = pgTable('book', {
@@ -7,6 +6,3 @@ export const bookTable = pgTable('book', {
   description: text('description'),
   author: text('author').notNull(),
 });
-
-export type Book = InferSelectModel<typeof bookTable>;
-export type InsertBook = InferInsertModel<typeof bookTable>;
