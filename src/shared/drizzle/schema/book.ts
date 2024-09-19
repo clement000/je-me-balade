@@ -1,8 +1,11 @@
-import { serial, text, pgTable } from 'drizzle-orm/pg-core';
+import { authorTable } from '@shared/drizzle/schema/author';
+import { serial, text, pgTable, integer } from 'drizzle-orm/pg-core';
 
 export const bookTable = pgTable('book', {
   id: serial('id').primaryKey(),
   title: text('title').notNull(),
   description: text('description'),
-  author: text('author').notNull(),
+  authorId: integer('author_id')
+    .notNull()
+    .references(() => authorTable.id),
 });

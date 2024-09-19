@@ -10,14 +10,15 @@ export class DrizzleProvider {
   constructor() {
     const pool = new Pool({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      user: 'postgres',
+      host: process.env.POSTGRES_HOST,
+      port: process.env.POSTGRES_PORT,
+      user: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
-      database: 'postgres',
-      logger: true,
+      database: process.env.POSTGRES_DATABASE,
     });
 
-    this.db = drizzle(pool, { schema }) as NodePgDatabase<typeof schema>;
+    this.db = drizzle(pool, { schema, logger: true }) as NodePgDatabase<
+      typeof schema
+    >;
   }
 }
