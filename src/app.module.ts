@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BooksModule } from './books/books.module';
 import { ConfigModule } from '@nestjs/config';
 import { DrizzleModule } from './shared/drizzle/drizzle.module';
+import { OutingModule } from 'src/outing/outing.module';
 
 @Module({
   imports: [
-    BooksModule,
+    OutingModule,
     ConfigModule.forRoot({
       envFilePath: ['.env'],
     }),

@@ -10,11 +10,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - bookstore-network
+      - je-me-balade-network
     restart: always
 
 networks:
-  bookstore-network:
+  je-me-balade-network:
     driver: bridge
 
 volumes:

@@ -1,7 +1,7 @@
-import { authorTable } from '@shared/drizzle/schema/author';
-import { bookTable } from '@shared/drizzle/schema/book';
+import { userTable } from '@shared/drizzle/schema/user';
+import { outingTable } from '@shared/drizzle/schema/outing';
 
-export * from './book';
-export * from './author';
+export * from './outing';
+export * from './user';
 
-export const schema = { bookTable, authorTable };
+export const schema = { outingTable, userTable };
